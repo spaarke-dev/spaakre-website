@@ -1,7 +1,7 @@
 # Task 003: Create Page Shells
 
 **Phase:** 0 - Scaffold and Shell
-**Status:** not-started
+**Status:** done
 **Estimated:** 1.5 hours
 **Dependencies:** 002
 **Tags:** nextjs, react, tailwind
@@ -41,11 +41,11 @@ With the layout in place, we need page shells for every route so we can build fe
 
 ## Acceptance Criteria
 
-- [ ] All 6 routes render without errors
-- [ ] Each page has a unique `<title>` and `<meta description>`
-- [ ] `/robots.txt` returns valid robots file
-- [ ] `/sitemap.xml` returns valid XML with all static page URLs
-- [ ] Navigation links in header correctly link to each page
+- [x] All 6 routes render without errors
+- [x] Each page has a unique `<title>` and `<meta description>`
+- [x] `/robots.txt` returns valid robots file
+- [x] `/sitemap.xml` returns valid XML with all static page URLs
+- [x] Navigation links in header correctly link to each page
 
 ## Notes
 
