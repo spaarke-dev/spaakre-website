@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["@fluentui/react-icons"],
   },
+  serverExternalPackages: ["applicationinsights"],
 };
 
 export default nextConfig;

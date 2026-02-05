@@ -5,6 +5,7 @@ import { getIpHash } from "@/lib/ip-hash";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { saveContactSubmission } from "@/lib/storage";
 import { sendContactNotification } from "@/lib/email";
+import { trackEvent, trackException } from "@/lib/logger";
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,6 +23,7 @@ export async function POST(request: NextRequest) {
 
     // Honeypot check - bots fill this in; silently accept
     if (data.hp) {
+      trackEvent("contact.honeypot", { reason: data.reason ?? "none" });
       return NextResponse.json({ ok: true });
     }
 
@@ -29,6 +31,7 @@ export async function POST(request: NextRequest) {
     const ipHash = await getIpHash();
     const rateResult = checkRateLimit(ipHash);
     if (!rateResult.allowed) {
+      trackEvent("contact.rate_limited", { ipHash });
       return NextResponse.json(
         { ok: false, error: "RATE_LIMITED" },
         {
@@ -41,6 +44,9 @@ export async function POST(request: NextRequest) {
     // Validation
     const validation = validateContactForm(data);
     if (!validation.valid) {
+      trackEvent("contact.validation_failed", {
+        fields: Object.keys(validation.fields).join(","),
+      });
       return NextResponse.json(
         { ok: false, error: "VALIDATION_ERROR", fields: validation.fields },
         { status: 400 },
@@ -53,11 +59,20 @@ export async function POST(request: NextRequest) {
     // Send email notification (failure does not affect user response)
     sendContactNotification(data).catch((err) => {
       console.error("[contact] Email notification failed:", err);
+      trackException(
+        err instanceof Error ? err : new Error(String(err)),
+        { step: "email", reason: data.reason ?? "none" },
+      );
     });
 
+    trackEvent("contact.success", { reason: data.reason ?? "none" });
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[contact] Unexpected error:", err);
+    trackException(
+      err instanceof Error ? err : new Error(String(err)),
+      { step: "handler" },
+    );
     return NextResponse.json(
       { ok: false, error: "INTERNAL_ERROR" },
       { status: 500 },
