@@ -1,15 +1,15 @@
 # Task Index - Spaarke Marketing Website (v1)
 
 > **Total Tasks**: 20
-> **Completed**: 0 / 20
+> **Completed**: 2 / 20
 > **Current Phase**: 0 - Scaffold and Shell
 
 ## All Tasks
 
 | ID | Title | Phase | Status | Dependencies |
 |----|-------|-------|--------|--------------|
-| 001 | Scaffold Next.js project | 0 | not-started | none |
-| 002 | Implement site layout (header, footer, container) | 0 | not-started | 001 |
+| 001 | Scaffold Next.js project | 0 | done | none |
+| 002 | Implement site layout (header, footer, container) | 0 | done | 001 |
 | 003 | Create page shells and SEO basics | 0 | not-started | 002 |
 | 010 | Implement MDX loading and frontmatter parsing | 1 | not-started | 003 |
 | 011 | Build blog index page | 1 | not-started | 010 |

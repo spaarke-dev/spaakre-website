@@ -1,7 +1,7 @@
 # Task 002: Implement Site Layout
 
 **Phase:** 0 - Scaffold and Shell
-**Status:** not-started
+**Status:** done
 **Estimated:** 3 hours
 **Dependencies:** 001
 **Tags:** nextjs, react, tailwind, responsive, ui
@@ -43,12 +43,12 @@ The layout wraps all pages and provides consistent navigation and branding. The 
 
 ## Acceptance Criteria
 
-- [ ] Header renders with nav links and CTA on all pages
-- [ ] Footer renders with links on all pages
-- [ ] Mobile hamburger menu works (toggle open/close)
-- [ ] Layout is responsive from 320px to 1920px+
-- [ ] Keyboard navigation works on all header/footer links
-- [ ] Focus states are visible on interactive elements
+- [x] Header renders with nav links and CTA on all pages
+- [x] Footer renders with links on all pages
+- [x] Mobile hamburger menu works (toggle open/close)
+- [x] Layout is responsive from 320px to 1920px+
+- [x] Keyboard navigation works on all header/footer links
+- [x] Focus states are visible on interactive elements
 
 ## Notes
 
