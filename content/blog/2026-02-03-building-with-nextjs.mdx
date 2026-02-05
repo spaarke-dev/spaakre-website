@@ -1,0 +1,58 @@
+---
+title: "Building Modern Websites with Next.js"
+description: "A look at how we use Next.js, React, and Tailwind CSS to build fast, scalable web experiences."
+date: "2026-02-03"
+author: "Spaarke Team"
+tags: ["engineering", "nextjs", "react"]
+draft: false
+---
+
+# Building Modern Websites with Next.js
+
+At Spaarke, we chose Next.js as the foundation for our web platform. Here is why it has been a great fit and how we approach modern web development.
+
+## Why Next.js?
+
+Next.js gives us the best of both worlds: the rich interactivity of React with the performance benefits of server-side rendering and static generation. Key advantages include:
+
+- **App Router** - The new app directory structure makes layouts, loading states, and error boundaries intuitive.
+- **Server Components** - Render on the server by default, sending less JavaScript to the browser.
+- **Built-in Optimizations** - Image optimization, font loading, and code splitting come out of the box.
+
+## Our Tech Stack
+
+We pair Next.js with a handful of carefully chosen tools:
+
+- **TypeScript** for type safety across the entire codebase
+- **Tailwind CSS v4** for utility-first styling with zero runtime cost
+- **MDX** for content-driven pages like this blog
+
+## A Quick Example
+
+Here is a simplified version of how we fetch and render blog posts using server components:
+
+```typescript
+import { getAllPosts } from "@/lib/blog";
+
+export default function BlogIndex() {
+  const posts = getAllPosts();
+
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.slug}>
+          <a href={`/blog/${post.slug}`}>{post.title}</a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+The beauty of this approach is that the component runs entirely on the server. No client-side JavaScript is needed just to display a list of posts.
+
+## What Is Next
+
+We are continuously improving our stack and will share more technical deep-dives in future posts. Topics on the horizon include image optimization strategies, MDX customization, and deploying to the edge.
+
+Stay tuned and happy building!

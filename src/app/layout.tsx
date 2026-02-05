@@ -20,6 +20,11 @@ export const metadata: Metadata = {
     template: "%s | Spaarke",
   },
   description: "Spaarke - Igniting innovation",
+  alternates: {
+    types: {
+      "application/rss+xml": "/blog/rss.xml",
+    },
+  },
 };
 
 export default function RootLayout({
