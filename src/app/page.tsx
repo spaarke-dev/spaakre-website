@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="flex min-h-[75vh] items-center justify-center px-4 pb-24 pt-8">
-      <div className="flex w-full max-w-md flex-col items-center gap-16 text-center">
+      <div className="flex w-full max-w-lg flex-col items-center gap-16 text-center">
         {/* Spaarke logo */}
         <Image
           src="/images/spaarke-logo-full.svg"
@@ -27,7 +27,7 @@ export default function Home() {
           <h2 className="mb-5 text-lg font-semibold text-foreground">
             Join the Early Release Program
           </h2>
-          <EarlyReleaseForm />
+          <EarlyReleaseForm recaptchaSiteKey={process.env.RECAPTCHA_SITE_KEY ?? ""} />
         </div>
       </div>
     </div>

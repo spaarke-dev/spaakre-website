@@ -9,7 +9,11 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-export default function EarlyReleaseForm() {
+export default function EarlyReleaseForm({
+  recaptchaSiteKey,
+}: {
+  recaptchaSiteKey: string;
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -97,12 +101,10 @@ export default function EarlyReleaseForm() {
     return (
       <InlineAlert
         variant="success"
-        message="You're on the list! We'll notify you when early access is available."
+        message="Thanks for your interest — we will be in touch shortly!"
       />
     );
   }
-
-  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-4">
@@ -110,14 +112,14 @@ export default function EarlyReleaseForm() {
         <InlineAlert variant="error" message={errorMessage} />
       )}
 
-      <div className="flex gap-3">
+      <div className="flex gap-2">
         <input
           type="text"
           required
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="block w-full rounded-lg border border-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+          className="block min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
         />
         <input
           type="email"
@@ -125,7 +127,7 @@ export default function EarlyReleaseForm() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="block w-full rounded-lg border border-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+          className="block min-w-0 flex-[1.4] rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
         />
         <button
           type="submit"
@@ -168,9 +170,9 @@ export default function EarlyReleaseForm() {
         </button>
       </div>
 
-      {siteKey && (
+      {recaptchaSiteKey && (
         <div className="flex justify-center">
-          <ReCAPTCHA ref={recaptchaRef} sitekey={siteKey} />
+          <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaSiteKey} />
         </div>
       )}
     </form>
