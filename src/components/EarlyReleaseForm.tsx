@@ -126,7 +126,7 @@ export default function EarlyReleaseForm({
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="block min-w-0 flex-1 rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+          className="block min-w-0 flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-xs text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
         />
         <input
           type="email"
@@ -134,7 +134,7 @@ export default function EarlyReleaseForm({
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="block min-w-0 flex-[1.4] rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+          className="block min-w-0 flex-[1.5] rounded-lg border border-border bg-background px-4 py-2.5 text-xs text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
         />
         <button
           type="submit"

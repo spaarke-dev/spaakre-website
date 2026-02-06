@@ -93,8 +93,8 @@ export async function POST(request: NextRequest) {
       console.warn("[early-release] STORAGE_ACCOUNT_CONNECTION not set - signup not persisted.");
     }
 
-    // Send email notification (failure does not affect user response)
-    sendEarlyReleaseNotification({ name, email }).catch((err) => {
+    // Send email notification (awaited so serverless doesn't terminate early)
+    await sendEarlyReleaseNotification({ name, email }).catch((err) => {
       console.error("[early-release] Email notification failed:", err);
       trackException(
         err instanceof Error ? err : new Error(String(err)),

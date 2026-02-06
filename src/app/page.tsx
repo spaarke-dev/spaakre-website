@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="flex min-h-[75vh] items-center justify-center px-4 pb-24 pt-8">
-      <div className="flex w-full max-w-lg flex-col items-center gap-16 text-center">
+      <div className="flex w-full max-w-xl flex-col items-center gap-16 text-center">
         {/* Spaarke logo */}
         <Image
           src="/images/spaarke-logo-full.svg"

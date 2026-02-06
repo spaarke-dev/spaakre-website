@@ -85,8 +85,8 @@ export async function POST(request: NextRequest) {
     // Persist to Azure Table Storage first
     await saveContactSubmission(data, ipHash);
 
-    // Send email notification (failure does not affect user response)
-    sendContactNotification(data).catch((err) => {
+    // Send email notification (awaited so serverless doesn't terminate early)
+    await sendContactNotification(data).catch((err) => {
       console.error("[contact] Email notification failed:", err);
       trackException(
         err instanceof Error ? err : new Error(String(err)),
