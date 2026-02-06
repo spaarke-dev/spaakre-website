@@ -1,7 +1,7 @@
 # Task Index - Spaarke Marketing Website (v1)
 
 > **Total Tasks**: 20
-> **Completed**: 17 / 20
+> **Completed**: 20 / 20
 > **Current Phase**: 4 - Deploy
 
 ## All Tasks
@@ -24,11 +24,11 @@
 | 032 | Add Azure Table Storage persistence | 3 | done | 031 |
 | 033 | Integrate SendGrid email notifications | 3 | done | 032 |
 | 034 | Add rate limiting to contact API | 3 | done | 031 |
-| 040 | Provision Azure resources (Storage, App Insights) | 4 | not-started | 001 |
-| 041 | Create Azure SWA and link to GitHub | 4 | not-started | 040, 003 |
-| 042 | Configure env vars and secrets | 4 | not-started | 041, 040 |
-| 043 | Upload intro video to Blob Storage | 4 | not-started | 040 |
-| 044 | Configure custom domain and TLS | 4 | not-started | 041 |
+| 040 | Provision Azure resources (Storage, App Insights) | 4 | done | 001 |
+| 041 | Create Azure SWA and link to GitHub | 4 | done | 040, 003 |
+| 042 | Configure env vars and secrets | 4 | done | 041, 040 |
+| 043 | Upload intro video to Blob Storage | 4 | deferred | 040 |
+| 044 | Configure custom domain and TLS | 4 | deferred | 041 |
 | 045 | Enable Application Insights | 4 | done | 040, 031 |
 | 090 | Project wrap-up | Wrap-up | not-started | all |
 

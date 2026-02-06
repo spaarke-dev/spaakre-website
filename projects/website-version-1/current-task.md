@@ -3,14 +3,14 @@
 ## Quick Recovery
 | Field | Value |
 |-------|-------|
-| **Task** | -- |
+| **Task** | 090 |
 | **Step** | -- |
-| **Status** | Phases 0-3 complete |
-| **Next Action** | Begin Phase 4 (Deploy) |
+| **Status** | All phases complete |
+| **Next Action** | Run wrap-up verification |
 
 ## Details
-- **Task File:** --
-- **Phase:** Phases 0-3 complete
+- **Task File:** tasks/090-project-wrap-up.md
+- **Phase:** Wrap-up
 - **Started:** --
 
 ## Completed Steps
@@ -31,6 +31,15 @@
 - Task 032: Added Azure Table Storage persistence
 - Task 033: Integrated SendGrid email notifications
 - Task 034: Added rate limiting to contact API
+- Task 040: Provisioned Azure resources (rg, storage, app insights)
+- Task 041: Created SWA linked to GitHub with CI/CD
+- Task 042: Configured env vars and secrets in SWA
+- Task 045: Added Application Insights structured logging
+
+## Deferred
+
+- Task 043: Upload intro video (video not yet ready)
+- Task 044: Custom domain + TLS (domain DNS setup pending)
 
 ## Decisions Made
 
@@ -38,7 +47,9 @@
 - Using next-mdx-remote/rsc for server-side MDX compilation
 - Using facade/lite-embed pattern for YouTube/Vimeo videos
 - Persist-first pattern for contact: save to Table Storage before email
+- Azure region: East US 2
+- Subscription: Spaarke SPE Subscription 1
 
 ## Notes
 
-Phases 0-3 complete 2026-02-05. Ready for Phase 4 (Azure deployment) and Task 090 (wrap-up).
+Phases 0-4 complete 2026-02-05. Tasks 043 (video upload) and 044 (custom domain) deferred pending assets/DNS. First deployment triggered.
