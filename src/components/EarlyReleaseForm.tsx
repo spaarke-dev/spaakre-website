@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
 import InlineAlert from "@/components/InlineAlert";
@@ -36,55 +36,7 @@ export default function EarlyReleaseForm({
     return null;
   }
 
-  const submitForm = useCallback(
-    async (captchaToken: string) => {
-      setStatus("submitting");
-      setErrorMessage("");
-
-      try {
-        const res = await fetch("/api/early-release", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: name.trim(),
-            email: email.trim(),
-            captchaToken,
-          }),
-        });
-
-        const data = await res.json();
-
-        if (res.status === 429) {
-          setStatus("error");
-          setErrorMessage("Too many submissions. Please try again later.");
-          recaptchaRef.current?.reset();
-          return;
-        }
-
-        if (!res.ok || !data.ok) {
-          setStatus("error");
-          setErrorMessage(
-            data.error === "CAPTCHA_FAILED"
-              ? "CAPTCHA verification failed. Please try again."
-              : "Something went wrong. Please try again.",
-          );
-          recaptchaRef.current?.reset();
-          return;
-        }
-
-        setStatus("success");
-      } catch {
-        setStatus("error");
-        setErrorMessage(
-          "Unable to reach the server. Please check your connection and try again.",
-        );
-        recaptchaRef.current?.reset();
-      }
-    },
-    [name, email],
-  );
-
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const validationError = validate();
@@ -94,13 +46,59 @@ export default function EarlyReleaseForm({
       return;
     }
 
-    // Trigger invisible reCAPTCHA — onCaptchaResolved fires with the token
-    recaptchaRef.current?.execute();
-  }
+    setStatus("submitting");
+    setErrorMessage("");
 
-  function onCaptchaResolved(token: string | null) {
-    if (token) {
-      submitForm(token);
+    try {
+      // Get captcha token — use executeAsync for invisible mode
+      let captchaToken = "";
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+        const token = await recaptchaRef.current.executeAsync();
+        captchaToken = token ?? "";
+      }
+
+      if (!captchaToken) {
+        setStatus("error");
+        setErrorMessage("CAPTCHA verification failed. Please try again.");
+        return;
+      }
+
+      const res = await fetch("/api/early-release", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          captchaToken,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 429) {
+        setStatus("error");
+        setErrorMessage("Too many submissions. Please try again later.");
+        return;
+      }
+
+      if (!res.ok || !data.ok) {
+        setStatus("error");
+        setErrorMessage(
+          data.error === "CAPTCHA_FAILED"
+            ? "CAPTCHA verification failed. Please try again."
+            : "Something went wrong. Please try again.",
+        );
+        return;
+      }
+
+      setStatus("success");
+    } catch {
+      setStatus("error");
+      setErrorMessage(
+        "Unable to reach the server. Please check your connection and try again.",
+      );
+      recaptchaRef.current?.reset();
     }
   }
 
@@ -184,7 +182,6 @@ export default function EarlyReleaseForm({
           ref={recaptchaRef}
           sitekey={recaptchaSiteKey}
           size="invisible"
-          onChange={onCaptchaResolved}
         />
       )}
     </form>
