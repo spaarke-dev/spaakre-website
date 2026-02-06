@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
 import InlineAlert from "@/components/InlineAlert";
@@ -36,7 +36,55 @@ export default function EarlyReleaseForm({
     return null;
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  const submitForm = useCallback(
+    async (captchaToken: string) => {
+      setStatus("submitting");
+      setErrorMessage("");
+
+      try {
+        const res = await fetch("/api/early-release", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name.trim(),
+            email: email.trim(),
+            captchaToken,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (res.status === 429) {
+          setStatus("error");
+          setErrorMessage("Too many submissions. Please try again later.");
+          recaptchaRef.current?.reset();
+          return;
+        }
+
+        if (!res.ok || !data.ok) {
+          setStatus("error");
+          setErrorMessage(
+            data.error === "CAPTCHA_FAILED"
+              ? "CAPTCHA verification failed. Please try again."
+              : "Something went wrong. Please try again.",
+          );
+          recaptchaRef.current?.reset();
+          return;
+        }
+
+        setStatus("success");
+      } catch {
+        setStatus("error");
+        setErrorMessage(
+          "Unable to reach the server. Please check your connection and try again.",
+        );
+        recaptchaRef.current?.reset();
+      }
+    },
+    [name, email],
+  );
+
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const validationError = validate();
@@ -46,54 +94,13 @@ export default function EarlyReleaseForm({
       return;
     }
 
-    const captchaToken = recaptchaRef.current?.getValue();
-    if (!captchaToken) {
-      setStatus("error");
-      setErrorMessage("Please complete the CAPTCHA verification.");
-      return;
-    }
+    // Trigger invisible reCAPTCHA — onCaptchaResolved fires with the token
+    recaptchaRef.current?.execute();
+  }
 
-    setStatus("submitting");
-    setErrorMessage("");
-
-    try {
-      const res = await fetch("/api/early-release", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim(),
-          captchaToken,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (res.status === 429) {
-        setStatus("error");
-        setErrorMessage("Too many submissions. Please try again later.");
-        recaptchaRef.current?.reset();
-        return;
-      }
-
-      if (!res.ok || !data.ok) {
-        setStatus("error");
-        setErrorMessage(
-          data.error === "CAPTCHA_FAILED"
-            ? "CAPTCHA verification failed. Please try again."
-            : "Something went wrong. Please try again.",
-        );
-        recaptchaRef.current?.reset();
-        return;
-      }
-
-      setStatus("success");
-    } catch {
-      setStatus("error");
-      setErrorMessage(
-        "Unable to reach the server. Please check your connection and try again.",
-      );
-      recaptchaRef.current?.reset();
+  function onCaptchaResolved(token: string | null) {
+    if (token) {
+      submitForm(token);
     }
   }
 
@@ -107,9 +114,11 @@ export default function EarlyReleaseForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-4">
+    <form onSubmit={handleSubmit} noValidate>
       {status === "error" && errorMessage && (
-        <InlineAlert variant="error" message={errorMessage} />
+        <div className="mb-4">
+          <InlineAlert variant="error" message={errorMessage} />
+        </div>
       )}
 
       <div className="flex gap-2">
@@ -171,9 +180,12 @@ export default function EarlyReleaseForm({
       </div>
 
       {recaptchaSiteKey && (
-        <div className="flex justify-center">
-          <ReCAPTCHA ref={recaptchaRef} sitekey={recaptchaSiteKey} />
-        </div>
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey={recaptchaSiteKey}
+          size="invisible"
+          onChange={onCaptchaResolved}
+        />
       )}
     </form>
   );
