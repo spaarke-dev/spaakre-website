@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import EarlyReleaseForm from "@/components/EarlyReleaseForm";
 
 export const metadata: Metadata = {
@@ -10,29 +11,20 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="flex min-h-[75vh] items-center justify-center px-4 py-16">
-      <div className="flex w-full max-w-sm flex-col items-center gap-10 text-center">
-        {/* Spaarke brand mark */}
-        <div>
-          <h1
-            className="text-5xl font-bold tracking-tight sm:text-6xl"
-            style={{
-              background:
-                "linear-gradient(135deg, #000BFF, #00F7FF, #1AFF00, #FFD200, #FF4600)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            SPAARKE
-          </h1>
-          <p className="mt-3 text-base text-muted-foreground">
-            Igniting Innovation
-          </p>
-        </div>
+      <div className="flex w-full max-w-md flex-col items-center gap-10 text-center">
+        {/* Spaarke logo */}
+        <Image
+          src="/images/spaarke-logo-full.svg"
+          alt="Spaarke"
+          width={280}
+          height={85}
+          priority
+          className="h-auto w-56 sm:w-64"
+        />
 
         {/* Early Release signup */}
         <div className="w-full">
-          <h2 className="mb-6 text-lg font-semibold text-foreground">
+          <h2 className="mb-5 text-lg font-semibold text-foreground">
             Join the Early Release Program
           </h2>
           <EarlyReleaseForm />

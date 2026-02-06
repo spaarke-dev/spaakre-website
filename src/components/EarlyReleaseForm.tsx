@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
-import FormField from "@/components/FormField";
 import InlineAlert from "@/components/InlineAlert";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -12,21 +12,14 @@ type FormStatus = "idle" | "submitting" | "success" | "error";
 export default function EarlyReleaseForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [fieldErrors, setFieldErrors] = useState<{
-    name?: string;
-    email?: string;
-  }>({});
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-  function validateLocally(): boolean {
-    const errors: { name?: string; email?: string } = {};
-
+  function validate(): string | null {
     if (!name.trim() || name.trim().length > 100) {
-      errors.name = "Name is required (1-100 characters).";
+      return "Please enter your name.";
     }
-
     const emailTrimmed = email.trim();
     if (
       !emailTrimmed ||
@@ -34,17 +27,20 @@ export default function EarlyReleaseForm() {
       emailTrimmed.length > 254 ||
       !EMAIL_RE.test(emailTrimmed)
     ) {
-      errors.email = "A valid email address is required.";
+      return "Please enter a valid email address.";
     }
-
-    setFieldErrors(errors);
-    return Object.keys(errors).length === 0;
+    return null;
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    if (!validateLocally()) return;
+    const validationError = validate();
+    if (validationError) {
+      setStatus("error");
+      setErrorMessage(validationError);
+      return;
+    }
 
     const captchaToken = recaptchaRef.current?.getValue();
     if (!captchaToken) {
@@ -109,47 +105,37 @@ export default function EarlyReleaseForm() {
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit} noValidate className="space-y-4">
       {status === "error" && errorMessage && (
         <InlineAlert variant="error" message={errorMessage} />
       )}
 
-      <FormField
-        name="early-name"
-        label="Name"
-        required
-        placeholder="Your name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        error={fieldErrors.name}
-      />
-
-      <FormField
-        name="early-email"
-        label="Email"
-        type="email"
-        required
-        placeholder="you@example.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        error={fieldErrors.email}
-      />
-
-      {siteKey && (
-        <div className="flex justify-center">
-          <ReCAPTCHA ref={recaptchaRef} sitekey={siteKey} />
-        </div>
-      )}
-
-      <button
-        type="submit"
-        disabled={status === "submitting"}
-        className="w-full rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50"
-      >
-        {status === "submitting" ? (
-          <span className="inline-flex items-center gap-2">
+      <div className="flex gap-3">
+        <input
+          type="text"
+          required
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="block w-full rounded-lg border border-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+        />
+        <input
+          type="email"
+          required
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="block w-full rounded-lg border border-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted-foreground transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+        />
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          aria-label="Join the Early Release"
+          className="flex-shrink-0 rounded-lg bg-primary p-2.5 transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50"
+        >
+          {status === "submitting" ? (
             <svg
-              className="h-4 w-4 animate-spin"
+              className="h-5 w-5 animate-spin text-primary-foreground"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -169,12 +155,24 @@ export default function EarlyReleaseForm() {
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
               />
             </svg>
-            Joining...
-          </span>
-        ) : (
-          "Join the Early Release"
-        )}
-      </button>
+          ) : (
+            <Image
+              src="/images/box-arrow-45-degree.svg"
+              alt=""
+              width={20}
+              height={20}
+              className="h-5 w-5 brightness-0 invert"
+              aria-hidden="true"
+            />
+          )}
+        </button>
+      </div>
+
+      {siteKey && (
+        <div className="flex justify-center">
+          <ReCAPTCHA ref={recaptchaRef} sitekey={siteKey} />
+        </div>
+      )}
     </form>
   );
 }
