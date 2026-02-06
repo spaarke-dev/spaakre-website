@@ -6,10 +6,10 @@ import { getAllPosts } from "@/lib/blog";
 const siteUrl = process.env.SITE_URL ?? "https://www.spaarke.com";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Library",
   description: "Insights and updates from the Spaarke team.",
   openGraph: {
-    title: "Blog | Spaarke",
+    title: "Library | Spaarke",
     description: "Insights and updates from the Spaarke team.",
     url: `${siteUrl}/blog`,
     siteName: "Spaarke",
@@ -25,7 +25,7 @@ export default function BlogIndex() {
       <Container>
         <div className="mx-auto max-w-3xl">
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Blog
+            Library
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
             Insights and updates from the Spaarke team.

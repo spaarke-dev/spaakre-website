@@ -10,16 +10,16 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="flex min-h-[75vh] items-center justify-center px-4 py-16">
-      <div className="flex w-full max-w-md flex-col items-center gap-10 text-center">
+    <div className="flex min-h-[75vh] items-center justify-center px-4 pb-24 pt-8">
+      <div className="flex w-full max-w-md flex-col items-center gap-16 text-center">
         {/* Spaarke logo */}
         <Image
           src="/images/spaarke-logo-full.svg"
           alt="Spaarke"
-          width={280}
-          height={85}
+          width={560}
+          height={170}
           priority
-          className="h-auto w-56 sm:w-64"
+          className="h-auto w-[28rem] sm:w-[32rem]"
         />
 
         {/* Early Release signup */}

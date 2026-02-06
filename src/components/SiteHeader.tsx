@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/blog", label: "Blog" },
+  { href: "/blog", label: "Library" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -47,12 +47,6 @@ export default function SiteHeader() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/contact"
-            className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Get in Touch
-          </Link>
         </div>
 
         {/* Mobile menu button */}
@@ -89,13 +83,6 @@ export default function SiteHeader() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/contact"
-              className="mt-2 block rounded-lg bg-primary px-3 py-2 text-center text-base font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Get in Touch
-            </Link>
           </div>
         </div>
       )}
