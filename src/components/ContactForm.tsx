@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Send24Regular } from "@fluentui/react-icons";
 import FormField from "@/components/FormField";
 import InlineAlert from "@/components/InlineAlert";
@@ -45,7 +46,11 @@ function validateLocally(fields: {
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
-export default function ContactForm() {
+export default function ContactForm({
+  recaptchaSiteKey,
+}: {
+  recaptchaSiteKey: string;
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
@@ -55,6 +60,7 @@ export default function ContactForm() {
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -71,6 +77,14 @@ export default function ContactForm() {
     setErrorMessage("");
 
     try {
+      // Get captcha token
+      let captchaToken = "";
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+        const token = await recaptchaRef.current.executeAsync();
+        captchaToken = token ?? "";
+      }
+
       // Read honeypot from the form element
       const formData = new FormData(e.currentTarget);
       const hp = (formData.get("hp") as string) ?? "";
@@ -85,6 +99,7 @@ export default function ContactForm() {
           reason: reason || undefined,
           message: message.trim(),
           hp,
+          captchaToken,
         }),
       });
 
@@ -100,6 +115,9 @@ export default function ContactForm() {
         if (data.error === "VALIDATION_ERROR" && data.fields) {
           setFieldErrors(data.fields as FieldErrors);
           setStatus("idle");
+        } else if (data.error === "CAPTCHA_FAILED") {
+          setStatus("error");
+          setErrorMessage("CAPTCHA verification failed. Please try again.");
         } else {
           setStatus("error");
           setErrorMessage(
@@ -115,6 +133,7 @@ export default function ContactForm() {
       setErrorMessage(
         "Unable to reach the server. Please check your connection and try again.",
       );
+      recaptchaRef.current?.reset();
     }
   }
 
@@ -232,6 +251,14 @@ export default function ContactForm() {
           </>
         )}
       </button>
+
+      {recaptchaSiteKey && (
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey={recaptchaSiteKey}
+          size="invisible"
+        />
+      )}
     </form>
   );
 }

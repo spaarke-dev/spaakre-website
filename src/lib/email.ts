@@ -65,3 +65,45 @@ export async function sendContactNotification(
     return { sent: false, error: message };
   }
 }
+
+export async function sendEarlyReleaseNotification(data: {
+  name: string;
+  email: string;
+}): Promise<{ sent: true } | { sent: false; error: string }> {
+  if (!ensureInit()) {
+    return { sent: false, error: "SendGrid not configured." };
+  }
+
+  const to = process.env.CONTACT_EMAIL_TO;
+  const from = process.env.SENDGRID_FROM_EMAIL;
+
+  if (!to || !from) {
+    console.warn(
+      "[email] CONTACT_EMAIL_TO or SENDGRID_FROM_EMAIL not set - skipping.",
+    );
+    return { sent: false, error: "Email recipients not configured." };
+  }
+
+  const timestamp = new Date().toISOString();
+
+  const text = [
+    `New Early Release signup at ${timestamp}`,
+    "",
+    `Name:  ${data.name}`,
+    `Email: ${data.email}`,
+  ].join("\n");
+
+  try {
+    await sgMail.send({
+      to,
+      from,
+      subject: `[Spaarke] New Early Release signup - ${data.name}`,
+      text,
+    });
+    return { sent: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[email] Failed to send early release notification:", message);
+    return { sent: false, error: message };
+  }
+}

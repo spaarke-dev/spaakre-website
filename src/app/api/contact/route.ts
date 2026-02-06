@@ -7,9 +7,25 @@ import { saveContactSubmission } from "@/lib/storage";
 import { sendContactNotification } from "@/lib/email";
 import { trackEvent, trackException } from "@/lib/logger";
 
+async function verifyCaptcha(token: string): Promise<boolean> {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  if (!secret) {
+    console.warn("[contact] RECAPTCHA_SECRET_KEY not set - skipping verification.");
+    return true;
+  }
+
+  const res = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `secret=${encodeURIComponent(secret)}&response=${encodeURIComponent(token)}`,
+  });
+  const data = await res.json();
+  return data.success === true;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as Partial<ContactFormData>;
+    const body = (await request.json()) as Partial<ContactFormData> & { captchaToken?: string };
 
     // Normalize inputs
     const data: ContactFormData = {
@@ -25,6 +41,19 @@ export async function POST(request: NextRequest) {
     if (data.hp) {
       trackEvent("contact.honeypot", { reason: data.reason ?? "none" });
       return NextResponse.json({ ok: true });
+    }
+
+    // Verify CAPTCHA
+    const captchaToken = (body.captchaToken ?? "").trim();
+    if (captchaToken) {
+      const captchaValid = await verifyCaptcha(captchaToken);
+      if (!captchaValid) {
+        trackEvent("contact.captcha_failed");
+        return NextResponse.json(
+          { ok: false, error: "CAPTCHA_FAILED" },
+          { status: 400 },
+        );
+      }
     }
 
     // Rate limiting

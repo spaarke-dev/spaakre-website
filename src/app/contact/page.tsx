@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Container from "@/components/Container";
 import ContactForm from "@/components/ContactForm";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Contact",
   description: "Get in touch with the Spaarke team.",
@@ -21,7 +23,7 @@ export default function Contact() {
           </p>
 
           <div className="mt-10">
-            <ContactForm />
+            <ContactForm recaptchaSiteKey={process.env.RECAPTCHA_SITE_KEY ?? ""} />
           </div>
         </div>
       </Container>

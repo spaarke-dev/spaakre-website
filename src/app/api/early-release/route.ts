@@ -5,6 +5,7 @@ import { randomBytes } from "crypto";
 import { getIpHash } from "@/lib/ip-hash";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { trackEvent, trackException } from "@/lib/logger";
+import { sendEarlyReleaseNotification } from "@/lib/email";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TABLE_NAME = "EarlyReleaseSignups";
@@ -91,6 +92,15 @@ export async function POST(request: NextRequest) {
     } else {
       console.warn("[early-release] STORAGE_ACCOUNT_CONNECTION not set - signup not persisted.");
     }
+
+    // Send email notification (failure does not affect user response)
+    sendEarlyReleaseNotification({ name, email }).catch((err) => {
+      console.error("[early-release] Email notification failed:", err);
+      trackException(
+        err instanceof Error ? err : new Error(String(err)),
+        { step: "email" },
+      );
+    });
 
     trackEvent("early_release.success", { email: email.replace(/@.*/, "@***") });
     return NextResponse.json({ ok: true });
