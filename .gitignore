@@ -55,3 +55,9 @@ next-env.d.ts
 
 # LinkedIn integration — local OAuth state during three-legged flow
 /scripts/.linkedin-cache/
+
+# Claude Code runtime state
+.claude/scheduled_tasks.lock
+
+# Windows shell shortcuts
+*.lnk

@@ -5,30 +5,19 @@ target: personal
 byline: ralph-schroeder
 publish_date: TBD
 hashtags: [LegalOps, LegalTech]
-format: article-syndication
+format: personal-reshare-of-company-post
 mode: standalone
-syndication_target:
-  blog: the-ux-that-legal-iq-requires
-  url: https://www.spaarke.com/why-spaarke/the-ux-that-legal-iq-requires
-hero_image: /articles/the-ux-that-legal-iq-requires/linkedin-1920x1080.png
+references:
+  company_post_url: TBD-paste-after-company-post-is-live
+  blog_post_url: https://www.spaarke.com/why-spaarke/the-ux-that-legal-iq-requires
 ---
 
-The most common mistake I see in "AI-native" legal demos right now: treating the conversational interface as the whole user experience.
+As we become more familiar with conversation-based AI, our expectations for how we interact with our work tools — documents, drafting, systems of record — are shifting. Legacy database-style UIs will give way to more interactive, conversation-driven ones. Not "chat in the lower-right corner," but conversation embedded throughout the application.
 
-The vendor opens an unchanged application — a matter list, an invoice screen, a contract repository — and adds a chat panel on the side. That is a UI change. It is not a UX change. The workspaces underneath are unchanged.
+This requires reimagining the user experience, and how the UI needs to evolve around AI's role in the work.
 
-I don't think conversation is the problem. For drafting, for document Q&A, for exploratory research — that pattern still works, and it was the right place for the first wave of generative AI to land.
+Some early findings and the direction we've been exploring at Spaarke:
 
-But AI now produces summaries on records, similar-matter suggestions at intake, anomaly flags on invoices, routed tasks, insights inside dashboards. None of that fits inside a chat thread. And it is not where the user wants to look for AI value.
-
-Two distinctions the field hasn't internalized yet.
-
-Generative versus agentic AI need different interaction treatments. A summary gets read and refined. An action gets reviewed and either confirmed or undone.
-
-And AI inside an enterprise system of record should be on duty across the work — surfacing what matters before the user asks — not waiting in a chat panel for a prompt.
-
-We have been building Spaarke around exactly that. The longer argument:
-
-https://www.spaarke.com/why-spaarke/the-ux-that-legal-iq-requires
+TBD-paste-after-company-post-is-live
 
 #LegalOps #LegalTech

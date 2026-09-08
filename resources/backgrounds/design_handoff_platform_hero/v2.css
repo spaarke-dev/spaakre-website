@@ -1,0 +1,115 @@
+/* ============================================================
+   Spaarke website-v2 — local kit tokens
+   Dark-first, sentence-case, single-accent (Spaarke Blue).
+   Refs the global colors_and_type.css for canonical hexes.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('../../brand/colors_and_type.css');
+
+:root {
+  /* Reframe semantics for dark-first marketing kit */
+  --v2-bg:           #0a0a0a;        /* near-black, not pure */
+  --v2-bg-elev:      #111111;        /* card / module surface */
+  --v2-bg-elev-2:    #161616;        /* hover / nested */
+  --v2-line:         rgba(255,255,255,0.08);
+  --v2-line-2:       rgba(255,255,255,0.14);
+  --v2-fg:           #f5f5f5;
+  --v2-fg-mid:       rgba(245,245,245,0.66);
+  --v2-fg-low:       rgba(245,245,245,0.42);
+  --v2-fg-min:       rgba(245,245,245,0.22);
+
+  --v2-accent:       #000BFF;        /* Spaarke Blue, single accent */
+  --v2-accent-hover: #1A24FF;        /* slightly lifted on hover */
+  --v2-accent-fg:    #ffffff;
+
+  --v2-display: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --v2-body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --v2-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --v2-pad-x:   clamp(24px, 6vw, 120px);
+  --v2-section: clamp(80px, 12vh, 160px);
+  --v2-radius:  10px;
+  --v2-radius-lg: 14px;
+}
+
+html, body { background: var(--v2-bg); color: var(--v2-fg); }
+body {
+  font-family: var(--v2-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+* { box-sizing: border-box; }
+
+.v2-h1, .v2-h2, .v2-h3, .v2-eyebrow { font-family: var(--v2-display); }
+.v2-h1 {
+  font-weight: 500;
+  font-size: clamp(48px, 7.5vw, 104px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin: 0;
+}
+.v2-h2 {
+  font-weight: 500;
+  font-size: clamp(34px, 4.5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+.v2-h3 {
+  font-weight: 500;
+  font-size: clamp(20px, 1.6vw, 26px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.v2-eyebrow {
+  font-family: var(--v2-mono);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v2-fg-low);
+  margin: 0 0 24px;
+}
+.v2-lede {
+  font-size: clamp(18px, 1.4vw, 22px);
+  line-height: 1.5;
+  color: var(--v2-fg-mid);
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+.v2-body { color: var(--v2-fg-mid); }
+
+.v2-shell { padding: 0 var(--v2-pad-x); }
+.v2-section { padding: var(--v2-section) 0; }
+.v2-rule { height: 1px; background: var(--v2-line); border: 0; margin: 0 var(--v2-pad-x); }
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+
+/* CTA buttons */
+.v2-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px; border-radius: 8px;
+  font-family: var(--v2-body); font-weight: 500; font-size: 14px;
+  letter-spacing: -0.005em; border: 1px solid transparent;
+  transition: background 160ms cubic-bezier(0.16,1,0.3,1),
+              border-color 160ms, color 160ms;
+}
+.v2-btn-primary { background: var(--v2-accent); color: var(--v2-accent-fg); }
+.v2-btn-primary:hover { background: var(--v2-accent-hover); }
+.v2-btn-outline {
+  background: transparent; color: var(--v2-fg);
+  border-color: var(--v2-line-2);
+}
+.v2-btn-outline:hover { border-color: var(--v2-fg); }
+.v2-btn-text {
+  padding: 8px 0; color: var(--v2-fg);
+  border: 0; background: transparent;
+}
+.v2-btn-text:hover { color: var(--v2-accent); }
+.v2-btn .arrow { display: inline-block; transition: transform 160ms; }
+.v2-btn:hover .arrow { transform: translateX(2px); }
