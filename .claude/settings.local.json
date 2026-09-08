@@ -13,7 +13,12 @@
       "Bash(npm run lint:*)",
       "Bash(npm run typecheck:*)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:www.npmjs.com)"
+      "WebFetch(domain:www.npmjs.com)",
+      "Edit(/.claude/skills/publish-linkedin/**)"
+    ],
+    "additionalDirectories": [
+      "c:\\code_files\\spaarke-website\\.claude\\skills",
+      "C:\\code_files\\spaarke-website\\.claude\\skills\\publish-linkedin"
     ]
   }
 }

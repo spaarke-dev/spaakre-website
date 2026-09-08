@@ -1,0 +1,514 @@
+---
+title: "Spaarke Platform Functional Specification 2026"
+description: "A functional overview of the Spaarke platform — workspaces, document management, document intelligence, AI playbooks, conversational AI, matter and project management, and Microsoft 365 integration."
+summary: "This functional specification provides a comprehensive overview of the Spaarke platform's capabilities, organized by major functional module. It covers workspaces, document management, document intelligence, AI playbooks, the conversational AI assistant, matter and project management, smart task management, the client and external portal, self-service registration, Microsoft 365 and Teams integration, reporting and analytics, SharePoint Embedded document storage, background processing, and the underlying Microsoft Azure infrastructure. Written for sophisticated but non-technical readers, this is the single reference document for what Spaarke does and how each capability fits into a unified document and matter intelligence platform."
+date: "2026-01-01"
+posted: "2026-01-01"
+author: "Spaarke Team"
+tags:
+  organization: [corporate-legal]
+  function: [operations, business-analyst, attorney, legal-professional, it, executive, finance]
+  topic: [matter-management, dms, workflow, contracts, reporting, ai-copilot, compliance]
+  theme: [iq-stack, legal-operations-intelligence, platform, microsoft-ecosystem, buyer-enablement]
+heroImage: "/articles/spaarke-functional-specification-2026/hero.jpg"
+draft: false
+---
+
+## Introduction
+
+The Spaarke platform has been designed to provide companies, professional services firms, and operations teams the tools they need to manage documents, matters, and AI-driven analysis across the full range of business activities. Purpose built for document-intensive workflows, the platform combines secure document storage, intelligent analysis, and configurable workspaces that streamline the complexities typically experienced with traditional document management and matter management systems. Spaarke allows for easy access to the documents, records, and AI-powered insights needed for informed decision making.
+
+Built on the Microsoft Power Platform and SharePoint Embedded, users work in a familiar software environment including direct integration to Power Apps, Power Automate, Power BI, Microsoft 365, Outlook/Exchange, Teams, and SharePoint—plus Microsoft Azure enterprise-class architecture that ensures 24×7 access, performance, data integrity, and security protections. The platform is easily extended through Microsoft's Power Platform™ tools allowing for custom processes, analytics, and other capabilities.
+
+The core modules include:
+
+- Workspaces (Legal, Corporate, External)
+- Document Management
+- Document Intelligence
+- AI Playbooks
+- Conversational AI Assistant
+- Matter and Project Management
+- Smart Task Management
+- Client and External Portal
+- Self-Service Registration
+- Microsoft 365 Integration
+- Microsoft Teams Integration
+- Microsoft Power BI for reporting and analytics
+- Microsoft SharePoint Embedded for document storage
+- Microsoft Azure cloud infrastructure
+
+---
+
+## Workspaces
+
+The Workspaces module is the organizing concept at the heart of the Spaarke platform. Each workspace brings together the documents, records, conversations, tasks, and AI activities for a specific matter, project, or engagement, providing a single point of access for the team members who need to work together. Workspaces are role-aware, security-trimmed, and configured for the type of work being performed.
+
+### Key features of Workspaces include:
+
+#### Workspace Types
+
+- Legal Operations Workspace tailored for matter management and legal document analysis
+- Corporate Workspace for project, transaction, and general business document collaboration
+- External Workspace for clients, counterparties, and outside contributors
+- Configurable layouts allow each workspace type to surface the most relevant sections
+
+#### Workspace Home
+
+- Single landing page with documents, tasks, recent activity, and key updates
+- Latest Updates feed with consolidated emails, comments, and system events
+- To Do list with due-date tracking and priority badges
+- Documents grid with quick filters, search, and inline preview
+- Count badges show outstanding items at a glance
+
+#### Workspace Configuration
+
+- Workspace Layout Wizard lets administrators customize sections and ordering
+- Themes and branding align workspace appearance with organizational identity
+- Section visibility controlled by user role and permissions
+- New workspace types can be defined without custom development
+
+#### Membership and Access
+
+- Internal team members granted role-based access (owner, contributor, reader)
+- External members invited through the Client Portal with scoped permissions
+- Permission inheritance from parent records (matter, project, account)
+- Audit trail of access grants and removals
+
+#### Drill-Through Navigation
+
+- One-click access from workspace home to any related record
+- Breadcrumb navigation across nested workspaces and records
+- Universal Quick Create for adding records without leaving the workspace
+- Embedded grids and forms eliminate context switching
+
+---
+
+## Document Management
+
+The Document Management module supports the end-to-end lifecycle of business documents, from upload and classification through analysis, sharing, and archival. Built on Microsoft SharePoint Embedded, Spaarke provides secure, scalable storage with the rich metadata and relationship tracking required for legal, transactional, and compliance work.
+
+### Key features of Document Management include:
+
+#### Document Upload
+
+- Multi-file Document Upload Wizard with drag-and-drop and folder support
+- Required metadata captured at point of upload through configurable profiles
+- Bulk upload with per-file metadata override
+- Inbound email attachment ingestion through Outlook integration
+- Automatic content extraction and full-text indexing on upload
+
+#### Document Profiles
+
+- Structured metadata profiles by document type (contract, invoice, filing, memo, etc.)
+- AI-assisted metadata extraction populates fields automatically
+- Profile fields drive search, filtering, and reporting across the platform
+- Configurable profiles support new document types without custom development
+
+#### Document Relationships
+
+- Documents link to matters, projects, contacts, and other documents
+- Document Relationship Viewer presents related documents as a navigable graph
+- Related Document Count badges show linked items at a glance
+- Versioning, supersession, and parent/child relationships tracked
+
+#### Document Viewer
+
+- Native preview of Office documents, PDFs, images, and email files
+- Side-by-side viewing with AI analysis output and metadata
+- Inline annotations and reading state preserved
+- One-click open in Microsoft 365 desktop or web
+
+#### Find Similar
+
+- Semantic similarity search identifies documents with related content
+- Hybrid search combines keyword, vector, and semantic ranking
+- Find Similar Wizard supports both document lookup and ad-hoc file upload
+- Results scoped by workspace, matter, or organization
+
+#### Document Storage and Security
+
+- All files stored in Microsoft SharePoint Embedded with encryption at rest and in transit
+- Access controlled through Microsoft Entra ID with conditional access policies
+- Document checkout and version history fully tracked
+- Tenant isolation guarantees no cross-customer data exposure
+
+---
+
+## Document Intelligence
+
+The Document Intelligence module provides AI-powered analysis, extraction, and classification across the document portfolio. Spaarke's AI Tool Framework offers a configurable library of analysis tools that operate on individual documents, document sets, or entire workspaces, with results streamed in real time and persisted for future reference.
+
+### Key features of Document Intelligence include:
+
+#### Streaming AI Analysis
+
+- Token-by-token streaming output for immediate feedback during analysis
+- Working document captures intermediate results and is preserved for review
+- Long-running analyses complete in the background and notify on completion
+- Cancel and re-run controls keep users in command of the process
+
+#### Extraction and Classification
+
+- Configurable extraction tools pull structured data from invoices, contracts, and filings
+- Classification tools tag documents by type, topic, jurisdiction, and confidentiality
+- Generic Analysis Handler powers most tools through configuration rather than code
+- Extracted data flows into searchable fields and downstream workflows
+
+#### Summarization
+
+- Single-document and batch summarization through the Summarize Files Wizard
+- Summary length, audience, and focus configurable per request
+- Summaries saved to the document profile for future retrieval
+- Multi-document summaries roll up findings across an entire workspace
+
+#### Semantic Search
+
+- Natural language queries return ranked document results across the corpus
+- Hybrid retrieval combines BM25 keyword, vector embedding, and semantic ranking
+- Security trimming ensures users only see results they are authorized to view
+- Results include passage-level highlights and citations
+
+#### AI Metadata Extractor
+
+- Inline control extracts metadata directly into form fields
+- Supports both single-field and full-profile extraction modes
+- Confidence scores and source citations support human review
+- Extraction templates configurable per document type
+
+---
+
+## AI Playbooks
+
+The AI Playbooks module provides a visual, node-based environment for designing and executing multi-step AI workflows. Playbooks combine AI analysis, conditional logic, data updates, notifications, and outputs into reusable processes that codify how an organization handles specific document types, matters, or recurring activities.
+
+### Key features of AI Playbooks include:
+
+#### Visual Playbook Builder
+
+- Drag-and-drop canvas for assembling playbook nodes and connections
+- Node library includes AI analysis, conditions, data updates, email, tasks, and outputs
+- Parameter and variable management at each step
+- Versioning and publication workflow for playbook governance
+
+#### Playbook Library
+
+- Catalog of published playbooks discoverable by users
+- Categories organize playbooks by department, document type, or use case
+- Configurable visibility controls who can see and run each playbook
+- Usage analytics track adoption and outcomes
+
+#### AI Builder Agent
+
+- Conversational interface to construct and modify playbooks through natural language
+- Agentic loop interprets user intent and assembles canvas nodes automatically
+- Generated playbooks reviewed and refined before publication
+- Accelerates onboarding for non-technical playbook authors
+
+#### Scope System (JSON Prompt Schema)
+
+- Reusable Actions, Skills, Knowledge, and Tools standardize AI prompts
+- Knowledge units provide retrieval-augmented context to playbooks
+- Skills define instruction fragments that combine into Actions
+- Tools encapsulate LLM operations with structured inputs and outputs
+
+#### Execution and Scheduling
+
+- Playbooks run on demand, on a schedule, or in response to events
+- Background scheduler executes notification-driven runs at scale
+- Execution history and logs preserved for audit and troubleshooting
+- Failed runs route to a dead-letter queue for review and replay
+
+---
+
+## Conversational AI Assistant
+
+The Conversational AI Assistant provides an in-workspace chat experience that brings AI capabilities directly into the user's daily workflow. The assistant operates with full awareness of the active workspace, document context, and available playbooks, allowing users to ask questions, run analysis, and take actions through natural language.
+
+### Key features of the Conversational AI Assistant include:
+
+#### In-Workspace Chat
+
+- Persistent chat pane available throughout the workspace
+- Multi-turn dialog with full conversation history
+- Context-aware responses grounded in the active matter, project, or document
+- Citations link back to source documents and records
+
+#### Tool and Playbook Execution
+
+- Assistant can invoke configured tools and playbooks during a conversation
+- Structured outputs feed directly into records, tasks, or documents
+- Confirmation prompts gate any action that modifies data
+- Execution results presented inline and saved to the conversation transcript
+
+#### Document Q&A
+
+- Ask questions across one document, a set of documents, or the entire workspace
+- Retrieval-augmented responses cite the specific passages used
+- Follow-up questions build on prior context without re-uploading content
+- Long documents handled through automated chunking and ranking
+
+#### Personalization
+
+- Assistant adapts tone and depth to user role and preferences
+- Saved prompts and shortcuts speed common requests
+- Cross-session memory preserves context for ongoing engagements
+
+---
+
+## Matter and Project Management
+
+The Matter and Project Management module provides structured intake, tracking, and lifecycle management for legal matters, corporate projects, and other business engagements. Guided wizards capture the information required to launch a new engagement, and configurable record templates ensure consistency across the organization.
+
+### Key features of Matter and Project Management include:
+
+#### Create Matter Wizard
+
+- Step-by-step creation of legal matters with required and optional metadata
+- Client, parties, and contact linkage captured during creation
+- Matter type drives field visibility and downstream workflow
+- Initial document upload and folder structure configured at creation
+- Created matter immediately available as a fully provisioned workspace
+
+#### Create Project Wizard
+
+- Equivalent guided creation flow for corporate projects and transactions
+- Project type, business unit, and stakeholders captured up front
+- Budget, timeline, and milestones set at creation
+- Auto-association with related records (account, opportunity, deal)
+
+#### Create Event and Create Todo
+
+- Lightweight wizards for adding events, deadlines, and tasks to a workspace
+- Priority, due date, and assignee captured in a single step
+- Events appear in the Smart Task Kanban and calendar views
+- Optional reminders and notifications
+
+#### Create Work Assignment
+
+- Standalone wizard for assigning work to internal or external counsel
+- Captures scope, budget, deadline, and instructions
+- Routes to the assignee through email and portal notification
+- Tracks acceptance, status updates, and completion
+
+#### Record Card Shell
+
+- Reusable card layout for matter, project, and engagement summary views
+- Headline status, owner, dates, and key counts visible at a glance
+- One-click drill-through to the full record or workspace
+- Consistent presentation across grids, dashboards, and search results
+
+---
+
+## Smart Task Management
+
+The Smart Task Management module provides a unified view of work across matters, projects, and workspaces. Tasks are organized in interactive Kanban boards, calendar views, and prioritized lists, ensuring that team members always know what is due and what is most important.
+
+### Key features of Smart Task Management include:
+
+#### Smart Todo Kanban
+
+- Drag-and-drop board organizes tasks by status, priority, or assignee
+- Task cards show due date, owner, related record, and progress
+- In-place editing of task fields without opening a separate form
+- Filters by workspace, owner, priority, and tag
+
+#### Due Dates Widget
+
+- Consolidated due-date view across all of a user's workspaces
+- Color-coded urgency for overdue, today, and upcoming items
+- One-click navigation to the underlying task or event
+- Configurable lookback and lookahead windows
+
+#### Calendar View
+
+- Calendar presentation of events, deadlines, and tasks
+- Filter by event type, owner, or workspace
+- Integration with Outlook calendars for personal scheduling
+- Drag-to-reschedule for due-date adjustments
+
+#### Notifications and Reminders
+
+- Email and in-app notifications for assignments, status changes, and due dates
+- Configurable per-user notification preferences
+- Microsoft Teams notifications keep the team aligned in real time
+
+---
+
+## Client and External Portal
+
+The Client and External Portal provides clients, counterparties, outside counsel, and other external contributors a direct, secure path to the workspaces and documents they need. Built on Microsoft Power Pages and Entra External ID, the portal delivers a focused, easy-to-use experience without exposing internal systems.
+
+### Key features of the Client and External Portal include:
+
+#### External Workspace Home
+
+- Tailored landing page with the user's accessible matters, projects, or events
+- Document upload with metadata capture
+- Task list and notifications scoped to the external user's role
+- Configurable branding aligned to the host organization
+
+#### Document Sharing
+
+- Secure document upload, download, and preview
+- Versioning and audit trail visible to both internal and external parties
+- Permission-trimmed views ensure each user sees only what is authorized
+- Watermarking and download restrictions for sensitive documents
+
+#### Playbook Library Access
+
+- External users can run playbooks made available to them
+- Output documents and analysis returned to the workspace
+- Permission model prevents external users from modifying playbook definitions
+
+#### Conversation and Comments
+
+- Threaded comments on documents, tasks, and records
+- @-mentions notify both internal and external participants
+- Conversation history preserved for the life of the engagement
+
+#### External User Authentication
+
+- Microsoft Entra External ID for secure, federated sign-in
+- Multi-factor authentication enforced by policy
+- Self-service password reset and account recovery
+- Session timeout and conditional access aligned with organizational standards
+
+---
+
+## Self-Service Registration
+
+The Self-Service Registration module allows external users to request access to the platform through a guided sign-up flow, with structured approval and automated provisioning. The module reduces administrative overhead while preserving control over who is granted access.
+
+### Key features of Self-Service Registration include:
+
+#### Registration Form
+
+- Branded sign-up form captures organization, role, and access purpose
+- Email verification confirms identity before submission proceeds
+- Configurable required fields support different access scenarios
+
+#### Approval Workflow
+
+- Submitted requests routed to designated approvers
+- Approver dashboard with side-by-side request review and decision controls
+- Email and portal notifications keep requesters informed of status
+- Audit trail of all decisions and rationale
+
+#### Automated Provisioning
+
+- Approved users automatically provisioned in Entra External ID
+- Workspace and record permissions assigned per request type
+- Welcome email with sign-in instructions sent on activation
+- Account deactivation and removal flows for offboarding
+
+---
+
+## Microsoft 365 Integration
+
+Spaarke is deeply integrated with Microsoft 365, allowing users to work with documents and records through the familiar Office, Outlook, and Teams environments without losing the context, security, and metadata captured in the platform.
+
+### Key features of Microsoft 365 Integration include:
+
+#### Office Document Integration
+
+- Open documents directly in Word, Excel, and PowerPoint desktop or web
+- Save back to Spaarke with full metadata and version retention
+- Co-authoring and commenting through native Office capabilities
+- Sensitivity labels honored across the platform
+
+#### Outlook Integration
+
+- Save emails and attachments to Spaarke from the Outlook ribbon
+- Email content classified and routed to the correct workspace automatically
+- Inbound email attachment processing for routine document intake
+- Calendar integration for events, deadlines, and meetings
+
+#### Microsoft Power Automate
+
+- Trigger flows from Spaarke events for custom automation
+- Connector library exposes Spaarke records and operations to flows
+- Run playbooks and Spaarke tools as Power Automate actions
+
+#### Microsoft Teams Integration
+
+- Workspace summary cards and notifications delivered into Teams channels
+- Document sharing from Spaarke directly into a Teams conversation
+- Embedded apps allow access to workspaces and chat without leaving Teams
+- Online meetings link to the matter, project, or event under discussion
+
+---
+
+## Reporting and Analytics
+
+The Spaarke platform enables robust reporting and analysis providing users deep insights into their workspaces, documents, and AI activity. Built on Microsoft's industry leading tools, users can leverage Excel, SQL Reporting Services, and Power BI to create, access, and share information across their teams.
+
+- Real-time reporting and analytics directly accessible in all formats
+- Dashboards provide rich infographics of workspace, task, and document metrics
+- AI usage and outcome reporting for governance and ROI measurement
+- Power BI enables sophisticated measures and cross-source analysis
+- Scheduled reports ensure awareness and visibility to important information
+- Specialized visuals for matter portfolios, document inventories, and task pipelines
+- Client and external user access through the Client Portal
+
+---
+
+## SharePoint Embedded Document Storage
+
+SharePoint Embedded provides the secure, scalable, enterprise-grade document storage layer beneath the Spaarke platform. Each workspace is backed by a dedicated SharePoint container with all the security, governance, and compliance capabilities of Microsoft 365, while remaining invisibly integrated into the Spaarke user experience.
+
+- Documents stored in dedicated containers per workspace, account, or matter
+- Encryption at rest and in transit, with customer-managed keys available
+- Full text search and indexing managed by the Microsoft 365 substrate
+- Conditional access, sensitivity labels, and data loss prevention policies enforced
+- Geographic data residency aligned with Microsoft 365 commitments
+- No additional infrastructure for customers to deploy or maintain
+
+---
+
+## Background Processing and Orchestration
+
+Long-running and high-volume operations are handled by a background processing layer that ensures user-facing experiences stay responsive while still completing intensive work reliably. AI analysis, document indexing, email ingestion, and bulk operations all flow through a managed job queue with retry, monitoring, and dead-letter handling.
+
+- Service Bus job queue handles asynchronous AI analysis, indexing, and ingestion
+- Document analysis, RAG indexing, and email processing scale independently
+- Failed jobs route to a dead-letter queue with replay and inspection tools
+- Embedding migration and vector backfill maintain search index health
+- Job-level monitoring and alerting integrated with Azure Monitor
+
+---
+
+## Enterprise Grade Infrastructure with Microsoft Azure
+
+Built on the industry's most highly rated enterprise-grade cloud computing platform: Microsoft Azure. The Spaarke platform is built to meet the availability and security demands of any organization, proven with certifications across the full range of infrastructure components, including Center for Internet Security (CIS) benchmarks, Cloud Security Alliance (CSA) STAR attestation, and the International Organization for Standardization (ISO) certifications. In addition, hosting site flexibility allows directed geo-location of infrastructure to ensure data privacy and governance regulation compliance.
+
+- CIS Microsoft Azure and Microsoft 365 Foundations Benchmarks
+- ISO/IEC 27001 Information Security Management Standards
+- ISO/IEC 27017 Code of Practice for Information Security Controls
+- ISO/IEC 27018 Code of Practice for Protecting Personal Data in the Cloud
+- ISO/IEC 27701 Privacy Information Management System (PIMS)
+- ISO 9001 Quality Management Systems Standards
+- Service Organization Controls (SOC) — SOC 1 and SOC 2
+- General Data Protection Regulation (GDPR) action plan and policy
+- Microsoft Entra ID and Entra External ID for authentication and access control
+- Azure Key Vault for secret and certificate management
+- Azure Monitor and Application Insights for observability and operational health
+
+---
+
+## Getting Started
+
+With the Spaarke platform, clients work in an efficient, easy-to-use environment that supports every aspect of their document and matter operations. All critical data, documents, and workflows are supported with world class technology that optimizes the accuracy, reliability, and efficiency of business processes.
+
+All Spaarke clients are onboarded to the platform to gain the benefits of its capabilities. We start by importing the client's existing documents and records, either from their current systems or through provided spreadsheets and exports. The data goes through a structured review and verification process, ensuring metadata is consistent, relationships are preserved, and content is correctly indexed for search and AI analysis.
+
+In addition to data onboarding, we configure the client's account including workspace types, document profiles, AI playbooks, and integration to Microsoft 365, Teams, and other enterprise systems. We work with the client to define reporting templates, dashboards, and notifications tailored to their organization.
+
+Finally, we provide the client with both getting-started training and ongoing training to ensure the Spaarke platform delivers value and continues to support the client's evolving needs.
+
+---
+
+## About Spaarke
+
+Spaarke is the document and matter intelligence platform for organizations that work in documents. Built natively on Microsoft Power Platform, SharePoint Embedded, and Azure, Spaarke combines secure document management, AI-driven analysis, configurable workspaces, and external collaboration into a single, unified experience. With deep integration to Microsoft 365 and an extensible architecture, Spaarke helps legal, corporate, and professional services teams turn their documents into leverage.
+
+Find more information at [www.spaarke.com](https://www.spaarke.com).
